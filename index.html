@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlissDLC / BlissVisuals | Выбери свою сторону</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Poppins:wght@600;700;800&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background-attachment: fixed;
+            color: #e0e0e0; 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+        }
+        
+        /* Общие стили */
+        .bliss-gradient {
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .glass {
+            background: rgba(30, 30, 30, 0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+        }
+        
+        .glass:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+        
+        .card-hover:hover::before {
+            animation: shine 0.6s ease-in-out;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.6);
+        }
+        
+        @keyframes shine {
+            0% { right: -50%; top: -50%; }
+            100% { right: 150%; top: 150%; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.6); }
+        }
+        
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce-in {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { opacity: 1; }
+            70% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .float { animation: float 6s ease-in-out infinite; }
+        .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        .rotate-slow { animation: rotate-slow 20s linear infinite; }
+        .bounce-in { animation: bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        
+        .gradient-button {
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
+            letter-spacing: 1px;
+        }
+        
+        .gradient-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .gradient-button:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff, #9d4edd);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 8s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-size: 32px;
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover .icon-box {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Стили для модального окна опроса */
+        .blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 9998;
+            transition: all 0.5s ease;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            width: 90%;
+            max-width: 500px;
+            transition: all 0.5s ease;
+        }
+        
+        .modal.hidden, .blur-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.95), rgba(48, 43, 99, 0.95));
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 50px rgba(139, 92, 246, 0.3);
+            animation: modalAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes modalAppear {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .option-btn {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .option-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .option-btn.soft {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        }
+        
+        .option-btn.soft:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+            border-color: #8b5cf6;
+        }
+        
+        .option-btn.ansoft {
+            background: linear-gradient(135deg, #ec4899, #ef4444);
+        }
+        
+        .option-btn.ansoft:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.4);
+            border-color: #ef4444;
+        }
+
+        /* Стили для модального окна инструкции BlissVisuals */
+        .instruction-modal .modal-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+        }
+        
+        .instruction-modal .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            text-align: left;
+            color: #fff;
+        }
+        
+        .instruction-modal .step-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1rem;
+        }
+        
+        .instruction-modal .step-list li::before {
+            content: '•';
+            color: #ff9a9e;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+        
+        .instruction-modal a {
+            color: #ff9a9e;
+            text-decoration: underline;
+            word-break: break-all;
+        }
+        
+        .instruction-modal .red-text {
+            color: #ff4444;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+        
+        .instruction-modal .ok-btn {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #1a1a2e;
+            font-weight: 900;
+            padding: 12px 40px;
+            border-radius: 40px;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        
+        .instruction-modal .ok-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 154, 158, 0.5);
+        }
+
+        /* Стили для Ansoft (BlissVisuals) в стиле жидкого стекла iOS */
+        body.ansoft-mode {
+            background: linear-gradient(135deg, #1c1c2e, #2a2a3a, #1a1a2e);
+        }
+
+        .ansoft-mode .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+        }
+
+        .ansoft-mode .glass:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .ansoft-mode .bliss-gradient {
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fad0c4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ansoft-mode .gradient-button {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #1a1a2e;
+            font-weight: 900;
+        }
+
+        .ansoft-mode .gradient-button:hover {
+            box-shadow: 0 10px 30px rgba(255, 154, 158, 0.5);
+        }
+
+        .ansoft-mode .icon-box {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 20px;
+        }
+
+        .ansoft-mode .nav-link::after {
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+        }
+
+        .ansoft-mode .card-hover:hover {
+            box-shadow: 0 20px 40px rgba(255, 154, 158, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Контейнеры контента */
+        .content-container {
+            transition: opacity 0.5s ease;
+        }
+
+        .content-container.hidden {
+            display: none;
+        }
+
+        /* Кнопка наверх */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 120px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        .scroll-to-top:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.6);
+        }
+
+        .scroll-to-top i {
+            color: white;
+            font-size: 20px;
+        }
+
+        .ansoft-mode .scroll-to-top {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            box-shadow: 0 10px 30px rgba(255, 154, 158, 0.4);
+        }
+
+        .ansoft-mode .scroll-to-top:hover {
+            box-shadow: 0 15px 40px rgba(255, 154, 158, 0.6);
+        }
+
+        /* Стили для мини-игры */
+        .game-modal .modal-content {
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.98), rgba(48, 43, 99, 0.98));
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        #gameCanvas {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            border: 3px solid rgba(139, 92, 246, 0.5);
+            border-radius: 15px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 20px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .game-score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .game-score span {
+            color: #8b5cf6;
+            font-size: 32px;
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .game-btn {
+            padding: 12px 30px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .game-btn.start {
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            color: white;
+        }
+
+        .game-btn.start:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
+        }
+
+        .game-btn.close {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .game-btn.close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid #8b5cf6;
+            display: none;
+            z-index: 10;
+        }
+
+        .game-over h3 {
+            font-size: 36px;
+            color: #ff4444;
+            margin-bottom: 10px;
+        }
+
+        .game-over p {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .game-instructions {
+            text-align: center;
+            color: #8b5cf6;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Затемнение фона (общее) -->
+    <div class="blur-overlay hidden" id="overlay"></div>
+    
+    <!-- Модальное окно опроса -->
+    <div class="modal hidden" id="pollModal">
+        <div class="modal-content">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center animate-pulse">
+                    <i class="fas fa-question text-white text-3xl"></i>
+                </div>
+                <h2 class="text-3xl font-black mb-2">Выбери свою сторону</h2>
+                <p class="text-gray-400">От этого выбора зависит твой опыт использования</p>
+            </div>
+            
+            <div class="space-y-4">
+                <button onclick="selectSide('soft')" class="option-btn soft w-full p-6 rounded-2xl text-white font-black text-xl flex items-center justify-between group transition-all">
+                    <span class="flex items-center gap-3">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                        СОФТ
+                    </span>
+                    <i class="fas fa-arrow-right group-hover:translate-x-2 transition"></i>
+                </button>
+                
+                <button onclick="selectSide('ansoft')" class="option-btn ansoft w-full p-6 rounded-2xl text-white font-black text-xl flex items-center justify-between group transition-all">
+                    <span class="flex items-center gap-3">
+                        <i class="fas fa-skull text-2xl"></i>
+                        АНСОФТ
+                    </span>
+                    <i class="fas fa-arrow-right group-hover:translate-x-2 transition"></i>
+                </button>
+            </div>
+            
+            <p class="text-center text-gray-500 text-sm mt-6">
+                <i class="fas fa-info-circle mr-1"></i>
+                Выбор можно изменить позже в настройках
+            </p>
+        </div>
+    </div>
+
+    <!-- Модальное окно инструкции для BlissVisuals -->
+    <div class="modal instruction-modal hidden" id="instructionModal">
+        <div class="modal-content">
+            <h2 class="text-3xl font-black mb-4 text-center bliss-gradient">Установка BlissVisuals</h2>
+            <ul class="step-list">
+                <li>Установите <strong>Minecraft Fabric 1.21.4</strong></li>
+                <li>Установите <strong>FabricAPI</strong> <a href="https://cdn.modrinth.com/data/P7dR8mSH/versions/p96k10UR/fabric-api-0.119.4%2B1.21.4.jar" target="_blank" download>скачать</a> и <strong>InGameAccountSwitcher</strong> <a href="https://cdn.modrinth.com/data/cudtvDnd/versions/GpMGjDlf/IAS-Fabric-1.21.4-9.0.4.jar" target="_blank" download>скачать</a> для смены аккаунтов.</li>
+                <li>Перенесите (Drag and Drop) <code>FabricAPI</code>, <code>IAS</code> и файл мода <code>blissvisuals-1.1.jar</code> в папку <code>mods</code>.</li>
+                <li>Запустите игру и наслаждайтесь визуалами.</li>
+            </ul>
+            <div class="red-text">Нажмите на "ОК" для загрузки основного файла</div>
+            <div class="flex justify-center">
+                <button class="ok-btn" id="downloadMainBtn">ОК</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно мини-игры -->
+    <div class="modal game-modal hidden" id="gameModal">
+        <div class="modal-content">
+            <h2 class="text-2xl font-black mb-2 text-center bliss-gradient">🐰 Заяц на элитрах</h2>
+            <p class="text-center text-gray-400 text-sm mb-4">Обойди Funtime и не поймай бан!</p>
+            
+            <div class="game-info">
+                <div class="game-score">Счёт: <span id="scoreValue">0</span></div>
+                <div class="game-score" style="font-size: 16px;">Рекорд: <span id="highScoreValue">0</span></div>
+            </div>
+            
+            <div style="position: relative;">
+                <canvas id="gameCanvas" width="700" height="400"></canvas>
+                <div class="game-over" id="gameOver">
+                    <h3>ТЫ ПОЙМАН! 💀</h3>
+                    <p>Твой счёт: <span id="finalScore">0</span></p>
+                    <button class="game-btn start" onclick="restartGame()">Играть снова</button>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <button class="game-btn start" id="startGameBtn" onclick="startGame()">🎮 Начать игру</button>
+                <button class="game-btn close" onclick="closeGameModal()">❌ Закрыть</button>
+            </div>
+            
+            <p class="game-instructions">
+                <i class="fas fa-arrow-up"></i> Пробел / Клик / Тап — взлететь вверх 
+                <i class="fas fa-arrow-down"></i> Отпустить — падать вниз
+            </p>
+        </div>
+    </div>
+
+    <!-- Контент для СОФТ (BlissDLC) - полностью оригинальный (взято из первого сообщения) -->
+    <div class="content-container" id="softContent">
+        <!-- Navigation -->
+        <nav class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md border-b border-white/10">
+            <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="text-2xl font-black bliss-gradient">✨ BlissDLC</div>
+                <div class="flex gap-8 text-sm">
+                    <a href="#features" class="nav-link text-gray-300 hover:text-white">Возможности</a>
+                    <a href="#changelog" class="nav-link text-gray-300 hover:text-white">Обновления</a>
+                    <a href="#stats" class="nav-link text-gray-300 hover:text-white">Статистика</a>
+                    <a href="https://t.me/blissdlc" target="_blank" class="nav-link text-gray-300 hover:text-white">Сообщество</a>
+                    <button onclick="openGameModal()" class="px-4 py-2 gradient-button text-white font-bold rounded-lg hover:shadow-lg transition flex items-center gap-2">
+                        <i class="fas fa-gamepad"></i> Мини-игра
+                    </button>
+                </div>
+                <button onclick="showPoll()" class="px-4 py-2 glass text-sm rounded-lg hover:bg-white/10 transition flex items-center gap-2">
+                    <i class="fas fa-sync-alt"></i> Сменить сторону
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="min-h-screen flex flex-col items-center justify-center text-center p-6 pt-20 relative overflow-hidden">
+            <!-- Animated background elements -->
+            <div class="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-pulse-glow"></div>
+            <div class="absolute bottom-20 right-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-pulse-glow" style="animation-delay: 2s;"></div>
+            
+            <div class="relative z-10">
+                <div class="inline-block mb-8 animate__animated animate__fadeInDown">
+                    <div class="px-6 py-2 glass rounded-full text-sm text-purple-400 font-semibold">
+                        🎮 #1 Minecraft Enhancement
+                    </div>
+                </div>
+                
+                <h1 class="text-8xl md:text-9xl font-black mb-6 animate__animated animate__fadeInDown animate__delay-1s">
+                    <span class="bliss-gradient">BlissDLC</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-300 mb-4 animate__animated animate__fadeInUp animate__delay-1s max-w-2xl mx-auto">
+                    Погрузись в <span class="text-gradient">идеальный игровой опыт</span> с максимальной производительностью и инновационными функциями
+                </p>
+                
+                <p class="text-gray-400 mb-12 animate__animated animate__fadeInUp animate__delay-1s">
+                    Более 50,000 довольных игроков уже присоединились к нам
+                </p>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col md:flex-row gap-6 items-center justify-center mb-16 animate__animated animate__fadeInUp animate__delay-2s">
+                    <a href="https://disk.yandex.ru/d/o3Xhw1B20g-R-w" download>
+                        <button class="gradient-button relative px-10 py-4 text-white font-black text-lg rounded-xl transition flex items-center gap-3 z-10">
+                            <i class="fas fa-download"></i> СКАЧАТЬ СЕЙЧАС
+                        </button>
+                    </a>
+                    <a href="#installation">
+                        <button class="px-10 py-4 glass text-white font-bold rounded-xl hover:bg-opacity-30 transition flex items-center gap-3">
+                            <i class="fas fa-book"></i> ИНСТРУКЦИЯ
+                        </button>
+                    </a>
+                    <a href="https://t.me/blissdlc" target="_blank">
+                        <button class="px-10 py-4 glass text-white font-bold rounded-xl hover:bg-opacity-30 transition flex items-center gap-3">
+                            <i class="fab fa-telegram"></i> TG Community
+                        </button>
+                    </a>
+                    <a href="#features">
+                        <button class="px-10 py-4 text-white font-bold rounded-xl border border-white/20 hover:border-white/50 transition flex items-center gap-3">
+                            <i class="fas fa-arrow-right"></i> Узнать больше
+                        </button>
+                    </a>
+                </div>
+                
+                <!-- Scroll indicator -->
+                <div class="scroll-indicator text-gray-500">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Features Section -->
+        <section id="features" class="py-32 relative overflow-hidden">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-black mb-4 animate__animated animate__fadeInUp">
+                        Почему выбирают <span class="bliss-gradient">BlissDLC</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s">
+                        Мощный набор инструментов, разработанных специально для максимизации вашего игрового потенциала
+                    </p>
+                </div>
+                
+                <div class="feature-grid">
+                    <!-- Feature 1 -->
+                    <div class="glass p-8 card-hover group animate__animated animate__fadeInUp animate__delay-1s">
+                        <div class="icon-box group-hover:bg-gradient-to-br from-purple-500 to-pink-500">
+                            <i class="fas fa-bolt text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Стабильные обходы</h3>
+                        <p class="text-gray-400 mb-4">Наши алгоритмы адаптируются под популярные сервера в реальном времени</p>
+                        <div class="flex items-center text-purple-400 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="glass p-8 card-hover group animate__animated animate__fadeInUp animate__delay-2s">
+                        <div class="icon-box group-hover:bg-gradient-to-br from-blue-500 to-cyan-500">
+                            <i class="fas fa-crosshairs text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">KillAura нового поколения</h3>
+                        <p class="text-gray-400 mb-4">Идеальный тайминг, динамическая дистанция и умный выбор цели</p>
+                        <div class="flex items-center text-cyan-400 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="glass p-8 card-hover group animate__animated animate__fadeInUp animate__delay-3s">
+                        <div class="icon-box group-hover:bg-gradient-to-br from-green-500 to-emerald-500">
+                            <i class="fas fa-shield-alt text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Антидетект система</h3>
+                        <p class="text-gray-400 mb-4">Продвинутые методы скрытия, никакие анти-читы вас не найдут</p>
+                        <div class="flex items-center text-green-400 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 4 -->
+                    <div class="glass p-8 card-hover group animate__animated animate__fadeInUp animate__delay-1s">
+                        <div class="icon-box group-hover:bg-gradient-to-br from-yellow-500 to-orange-500">
+                            <i class="fas fa-tachometer-alt text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Максимальный FPS</h3>
+                        <p class="text-gray-400 mb-4">Оптимизация памяти и процессора для плавной игры на любом ПК</p>
+                        <div class="flex items-center text-orange-400 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 5 -->
+                    <div class="glass p-8 card-hover group animate__animated animate__fadeInUp animate__delay-2s">
+                        <div class="icon-box group-hover:bg-gradient-to-br from-red-500 to-pink-500">
+                            <i class="fas fa-fire text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Мультиплеерные моды</h3>
+                        <p class="text-gray-400 mb-4">30+ встроенных модов, готовых к использованию на любых серверах</p>
+                        <div class="flex items-center text-pink-400 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 6 -->
+                    <div class="glass p-8 card-hover group animate__animated animate__fadeInUp animate__delay-3s">
+                        <div class="icon-box group-hover:bg-gradient-to-br from-indigo-500 to-purple-500">
+                            <i class="fas fa-sliders-h text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Простая настройка</h3>
+                        <p class="text-gray-400 mb-4">Интуитивный интерфейс позволяет настроить всё за несколько кликов</p>
+                        <div class="flex items-center text-indigo-400 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Changelog Section -->
+        <section id="changelog" class="py-32 relative overflow-hidden">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-black mb-4 animate__animated animate__fadeInUp">
+                        История <span class="bliss-gradient">обновлений</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg animate__animated animate__fadeInUp animate__delay-1s">
+                        Следите за новыми функциями и улучшениями
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Версия ??? -->
+                    <div class="glass p-6 card-hover animate__animated animate__fadeInUp">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="px-4 py-2 bg-gradient-to-br from-red-500 to-pink-500 rounded-lg text-white font-black text-sm">
+                                    build ???
+                                </div>
+                                <p class="text-gray-500 text-xs mt-2">recoding...</p>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3 text-white">🔥 Recode</h3>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>ElytraTarget (ебанутый перегон)</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>ElytraBooster</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-blue-400 mt-1">[/]</span>
+                                        <span>Aura (пиздец быстрая)</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>fondime bypa$$</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>spogydome bypa$$</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>some improvements</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>new hud</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>new clickgui</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Версия 0.27 -->
+                    <div class="glass p-6 card-hover animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="px-4 py-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg text-white font-black text-sm">
+                                    build 0.27
+                                </div>
+                                <p class="text-gray-500 text-xs mt-2">14.02.2026</p>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3 text-white">💀 Full KillAura Fix</h3>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>Коррекция "Преследование" в KillAura</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-blue-400 mt-1">[/]</span>
+                                        <span>Fix images on KillAura</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>AutoEZ</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Версия 0.26 -->
+                    <div class="glass p-6 card-hover animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="px-4 py-2 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg text-white font-black text-sm">
+                                    build 0.26
+                                </div>
+                                <p class="text-gray-500 text-xs mt-2">14.02.2026</p>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3 text-white">🎨 Visuals</h3>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>AirStuck</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-blue-400 mt-1">[/]</span>
+                                        <span>MainMenu</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-blue-400 mt-1">[/]</span>
+                                        <span>ClickGui (Dropdown)</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>Legit sprint</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Версия 0.25 -->
+                    <div class="glass p-6 card-hover animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="px-4 py-2 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg text-white font-black text-sm">
+                                    build 0.25
+                                </div>
+                                <p class="text-gray-500 text-xs mt-2">11.02.2026</p>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3 text-white">📊 HUD Recode</h3>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>full redesigned hud</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>some improvements</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-yellow-400 mt-1">[!]</span>
+                                        <span>Do not use ElytraTarget and ElytraBooster</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Версия 0.24 -->
+                    <div class="glass p-6 card-hover animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="px-4 py-2 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-lg text-white font-black text-sm">
+                                    build 0.24
+                                </div>
+                                <p class="text-gray-500 text-xs mt-2">10.02.2026</p>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3 text-white">⚔️ Aura Changes</h3>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>Aura recode</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>Legit Snap rotation mode (spooky and ft bypa$$)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Версия 0.23 (ElytraMotion) -->
+                    <div class="glass p-6 card-hover animate__animated animate__fadeInUp" style="animation-delay: 0.5s;">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="px-4 py-2 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg text-white font-black text-sm">
+                                    build 0.23
+                                </div>
+                                <p class="text-gray-500 text-xs mt-2">10.02.2026</p>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3 text-white">🚀 ElytraMotion</h3>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>ElytraMotion</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Версия 0.23 (Elytra) -->
+                    <div class="glass p-6 card-hover animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="px-4 py-2 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg text-white font-black text-sm">
+                                    build 0.23
+                                </div>
+                                <p class="text-gray-500 text-xs mt-2">09.02.2026 22:30</p>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3 text-white">🪽 BravoVH Upd</h3>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>ElytraBooster</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>Mode bravo in ElytraBooster</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>Пиздатенький ElytraHelper</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Версия 0.22 -->
+                    <div class="glass p-6 card-hover animate__animated animate__fadeInUp" style="animation-delay: 0.7s;">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="px-4 py-2 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg text-white font-black text-sm">
+                                    build 0.22
+                                </div>
+                                <p class="text-gray-500 text-xs mt-2">09.02.2026 21:45</p>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3 text-white">💨 SBros & SPBypa$$</h3>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>Легитный, пакетный и без сброса режимы спринта в KillAura</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>SpookyTime bypa$$ 100%</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Версия 0.2.1 -->
+                    <div class="glass p-6 card-hover animate__animated animate__fadeInUp" style="animation-delay: 0.8s;">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="px-4 py-2 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg text-white font-black text-sm">
+                                    build 0.2.1
+                                </div>
+                                <p class="text-gray-500 text-xs mt-2">Loader</p>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3 text-white">🔄 Bypa$$</h3>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>bypass sp</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>более менее нормальный лоадер</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-blue-400 mt-1">[&]</span>
+                                        <span>работаю над протектом</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Версия 0.2 -->
+                    <div class="glass p-6 card-hover animate__animated animate__fadeInUp" style="animation-delay: 0.9s;">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="px-4 py-2 bg-gradient-to-br from-gray-600 to-gray-800 rounded-lg text-white font-black text-sm">
+                                    build 0.2
+                                </div>
+                                <p class="text-gray-500 text-xs mt-2">beta</p>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3 text-white">🎯 Zalypa</h3>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>PokyDime duels aura</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>HvH aura</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>Invmove legit (spooky)</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-blue-400 mt-1">[/]</span>
+                                        <span>Aura</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-green-400 mt-1">[+]</span>
+                                        <span>дохуя всего</span>
+                                    </li>
+                                </ul>
+                                <p class="text-gray-500 text-sm mt-3 italic">скоро дроп, пока что сыровато</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="https://t.me/blissdlc" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 glass text-white font-bold rounded-xl hover:bg-white/20 transition">
+                        <i class="fab fa-telegram"></i> Следить за обновлениями в Telegram
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section id="stats" class="py-32 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div class="glass p-8 rounded-2xl text-center card-hover">
+                        <div class="text-5xl font-black bliss-gradient mb-2">100+</div>
+                        <p class="text-gray-400">Активных игроков</p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl text-center card-hover" style="animation-delay: 0.2s;">
+                        <div class="text-5xl font-black bliss-gradient mb-2">99.9%</div>
+                        <p class="text-gray-400">Стабильность</p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl text-center card-hover" style="animation-delay: 0.4s;">
+                        <div class="text-5xl font-black bliss-gradient mb-2">24/7</div>
+                        <p class="text-gray-400">Техподдержка</p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl text-center card-hover" style="animation-delay: 0.6s;">
+                        <div class="text-5xl font-black bliss-gradient mb-2">30+</div>
+                        <p class="text-gray-400">Встроенных модов</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview Section -->
+        <section id="preview" class="py-32">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-black mb-4">
+                        Смотрите в действии
+                    </h2>
+                    <p class="text-gray-400">Откройте для себя возможности BlissDLC</p>
+                </div>
+                
+                <div class="glass rounded-3xl overflow-hidden shadow-2xl border border-purple-500/30 card-hover">
+                    <div class="aspect-video w-full bg-black/50">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/MYtfSwD5Z3E" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Installation Guide Section -->
+        <section id="installation" class="py-32 relative overflow-hidden">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-black mb-4 animate__animated animate__fadeInUp">
+                        Как <span class="bliss-gradient">установить</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg animate__animated animate__fadeInUp animate__delay-1s">
+                        Простые шаги для быстрой установки BlissDLC
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-1 gap-6">
+                    <!-- Step 1 -->
+                    <div class="glass p-8 card-hover">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gradient-to-br from-purple-500 to-blue-500 text-white font-bold text-xl">
+                                    1
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3">Установите Java JDK 17</h3>
+                                <p class="text-gray-400 mb-4">Убедитесь, что у вас установлена Java JDK версии 17 или выше</p>
+                                <a href="https://adoptium.net/temurin/releases/?version=17&os=any&arch=any" target="_blank" class="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 font-semibold">
+                                    <i class="fas fa-download"></i> Скачать Java JDK 17
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="glass p-8 card-hover">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gradient-to-br from-blue-500 to-cyan-500 text-white font-bold text-xl">
+                                    2
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3">Скачайте клиент BlissDLC</h3>
+                                <p class="text-gray-400 mb-4">Нажмите кнопку "Скачать сейчас" на этой странице</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="glass p-8 card-hover">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gradient-to-br from-cyan-500 to-green-500 text-white font-bold text-xl">
+                                    3
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3">Переместите файл клиента</h3>
+                                <p class="text-gray-400 mb-4">Поместите скачанный файл <code class="bg-black/30 px-2 py-1 rounded text-orange-400">client.jar</code> в удобную папку на диске C:</p>
+                                <p class="text-sm text-gray-500">Пример: <code class="bg-black/30 px-2 py-1 rounded">C:\BlissDLC\client.jar</code></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="glass p-8 card-hover">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gradient-to-br from-green-500 to-emerald-500 text-white font-bold text-xl">
+                                    4
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3">Откройте командную строку</h3>
+                                <p class="text-gray-400 mb-4">Откройте CMD (Командная строка) от имени администратора</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="glass p-8 card-hover">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gradient-to-br from-emerald-500 to-yellow-500 text-white font-bold text-xl">
+                                    5
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3">Перейдите в папку с файлом</h3>
+                                <p class="text-gray-400 mb-4">Введите команду для перехода в папку, где находится файл:</p>
+                                <div class="bg-black/40 p-4 rounded-lg mb-3 border border-purple-500/20">
+                                    <code class="text-green-400 font-mono text-sm break-all">cd /d C:/ваш/путь/кфайлу</code>
+                                    <button onclick="copyToClipboard('cd /d C:/ваш/путь/кфайлу')" class="ml-3 text-purple-400 hover:text-purple-300 transition">
+                                        <i class="fas fa-copy"></i> Копировать
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="glass p-8 card-hover">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gradient-to-br from-yellow-500 to-orange-500 text-white font-bold text-xl">
+                                    6
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-3">Запустите клиент</h3>
+                                <p class="text-gray-400 mb-4">Введите команду для запуска BlissDLC:</p>
+                                <div class="bg-black/40 p-4 rounded-lg mb-3 border border-purple-500/20">
+                                    <code class="text-green-400 font-mono text-sm">java -jar client.jar</code>
+                                    <button onclick="copyToClipboard('java -jar client.jar')" class="ml-3 text-purple-400 hover:text-purple-300 transition">
+                                        <i class="fas fa-copy"></i> Копировать
+                                    </button>
+                                </div>
+                                <p class="text-sm text-gray-500">Готово! BlissDLC запустится</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-6 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
+                    <p class="text-yellow-300 text-sm">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        <strong>Важно:</strong> Файл должен находиться только на диске C:. Убедитесь, что Java JDK установлена правильно перед запуском.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-32 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-10"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-screen filter blur-3xl opacity-10"></div>
+            
+            <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+                <h2 class="text-5xl md:text-6xl font-black mb-8">
+                    Готовы к <span class="bliss-gradient">улучшению?</span>
+                </h2>
+                <p class="text-gray-400 text-xl mb-12 max-w-2xl mx-auto">
+                    Присоединитесь к тысячам игроков, которые уже испытали силу BlissDLC
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <a href="https://disk.yandex.ru/d/o3Xhw1B20g-R-w" download>
+                        <button class="gradient-button relative px-12 py-4 text-white font-black text-lg rounded-xl transition flex items-center gap-3 z-10 min-w-max">
+                            <i class="fas fa-download"></i> СКАЧАТЬ СЕЙЧАС
+                        </button>
+                    </a>
+                    <a href="#installation">
+                        <button class="px-12 py-4 glass text-white font-bold rounded-xl hover:bg-opacity-30 transition flex items-center gap-3">
+                            <i class="fas fa-book"></i> ИНСТРУКЦИЯ
+                        </button>
+                    </a>
+                    <a href="https://t.me/blissdlc" target="_blank">
+                        <button class="px-12 py-4 glass text-white font-bold rounded-xl hover:bg-opacity-30 transition flex items-center gap-3">
+                            <i class="fab fa-telegram text-2xl"></i> Присоединиться
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 py-12 bg-black/30">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-12 mb-12">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 bliss-gradient">BlissDLC</h3>
+                        <p class="text-gray-400">Максимальная производительность и инновационные функции для идеального игрового опыта</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Ссылки</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#features" class="hover:text-white transition">Возможности</a></li>
+                            <li><a href="#changelog" class="hover:text-white transition">Обновления</a></li>
+                            <li><a href="#stats" class="hover:text-white transition">Статистика</a></li>
+                            <li><a href="#preview" class="hover:text-white transition">Видео</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Сообщество</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="https://t.me/blissdlc" target="_blank" class="hover:text-white transition flex items-center gap-2"><i class="fab fa-telegram"></i>Telegram</a></li>
+                            <li><a href="https://github.com/neverjoskiy/blissdlc" target="_blank" class="hover:text-white transition flex items-center gap-2"><i class="fab fa-github"></i>GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-white/10 pt-8 text-center text-gray-500">
+                    <p>&copy; 2026 BlissDLC. Все права защищены. | Сделано с <i class="fas fa-heart text-red-500"></i> для геймеров</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Floating Telegram Button -->
+        <a href="https://t.me/blissdlc" target="_blank" class="fixed bottom-6 right-6 z-50 group animate__animated animate__fadeInRight">
+            <div class="relative p-4 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full border border-white/20 flex items-center shadow-2xl pulse-glow hover:scale-110 transition cursor-pointer">
+                <i class="fab fa-telegram text-white text-2xl"></i>
+            </div>
+        </a>
+
+        <!-- Кнопка наверх -->
+        <button onclick="scrollToTop()" class="scroll-to-top" id="scrollToTopBtn">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <!-- Контент для АНСОФТ (BlissVisuals) в стиле жидкого стекла iOS -->
+    <div class="content-container hidden" id="ansoftContent">
+        <!-- Navigation -->
+        <nav class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md border-b border-white/10">
+            <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="text-2xl font-black bliss-gradient">💧 BlissVisuals</div>
+                <div class="flex gap-8 text-sm">
+                    <a href="#features-visuals" class="nav-link text-gray-300 hover:text-white">Фишки</a>
+                    <a href="#effects" class="nav-link text-gray-300 hover:text-white">Эффекты</a>
+                    <a href="https://t.me/blissvisuals" target="_blank" class="nav-link text-gray-300 hover:text-white">Сообщество</a>
+                </div>
+                <button onclick="showPoll()" class="px-4 py-2 glass text-sm rounded-lg hover:bg-white/10 transition flex items-center gap-2">
+                    <i class="fas fa-sync-alt"></i> Сменить сторону
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section для BlissVisuals -->
+        <header class="min-h-screen flex flex-col items-center justify-center text-center p-6 pt-20 relative overflow-hidden">
+            <!-- Жидкие фоны -->
+            <div class="absolute top-20 left-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse"></div>
+            <div class="absolute bottom-20 right-10 w-72 h-72 bg-orange-300 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
+            
+            <div class="relative z-10">
+                <div class="inline-block mb-8 animate__animated animate__fadeInDown">
+                    <div class="px-6 py-2 glass rounded-full text-sm text-white font-semibold border border-white/30">
+                        🌊 #1 Visual Enhancement
+                    </div>
+                </div>
+                
+                <h1 class="text-8xl md:text-9xl font-black mb-6 animate__animated animate__fadeInDown animate__delay-1s">
+                    <span class="bliss-gradient">BlissVisuals</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-200 mb-4 animate__animated animate__fadeInUp animate__delay-1s max-w-2xl mx-auto">
+                    Преобрази <span class="text-gradient">графику Minecraft</span> до неузнаваемости с эффектами жидкого стекла
+                </p>
+                
+                <p class="text-gray-300 mb-12 animate__animated animate__fadeInUp animate__delay-1s">
+                    Более 20,000 креативных игроков уже используют BlissVisuals
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-6 items-center justify-center mb-16 animate__animated animate__fadeInUp animate__delay-2s">
+                    <!-- Кнопка УСТАНОВИТЬ (вызывает инструкцию) -->
+                    <button onclick="openInstructionModal()" class="gradient-button relative px-10 py-4 text-gray-900 font-black text-lg rounded-xl transition flex items-center gap-3 z-10">
+                        <i class="fas fa-download"></i> УСТАНОВИТЬ
+                    </button>
+                    <a href="#effects">
+                        <button class="px-10 py-4 glass text-white font-bold rounded-xl hover:bg-white/20 transition flex items-center gap-3">
+                            <i class="fas fa-eye"></i> ЭФФЕКТЫ
+                        </button>
+                    </a>
+                    <a href="https://t.me/blissvisuals" target="_blank">
+                        <button class="px-10 py-4 glass text-white font-bold rounded-xl hover:bg-white/20 transition flex items-center gap-3">
+                            <i class="fab fa-telegram"></i> TG Chat
+                        </button>
+                    </a>
+                </div>
+                
+                <!-- Scroll indicator -->
+                <div class="scroll-indicator text-gray-400">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Features для BlissVisuals -->
+        <section id="features-visuals" class="py-32">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-black mb-4">
+                        Эффекты <span class="bliss-gradient">жидкого стекла</span>
+                    </h2>
+                    <p class="text-gray-300 text-lg">Каждая деталь становится произведением искусства</p>
+                </div>
+                
+                <div class="feature-grid">
+                    <!-- Feature 1 -->
+                    <div class="glass p-8 card-hover group">
+                        <div class="icon-box">
+                            <i class="fas fa-droplet text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Жидкие текстуры</h3>
+                        <p class="text-gray-300 mb-4">Вода, лава и жидкости выглядят как настоящее стекло с динамическими отражениями</p>
+                        <div class="flex items-center text-pink-300 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="glass p-8 card-hover group">
+                        <div class="icon-box">
+                            <i class="fas fa-lightbulb text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Динамический свет</h3>
+                        <p class="text-gray-300 mb-4">Реалистичное освещение с преломлением через стеклянные поверхности</p>
+                        <div class="flex items-center text-pink-300 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="glass p-8 card-hover group">
+                        <div class="icon-box">
+                            <i class="fas fa-cloud-sun text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Небесные эффекты</h3>
+                        <p class="text-gray-300 mb-4">Облака, туман и небо с эффектом жидкого стекла и плавными переходами</p>
+                        <div class="flex items-center text-pink-300 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 4 -->
+                    <div class="glass p-8 card-hover group">
+                        <div class="icon-box">
+                            <i class="fas fa-gem text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Блоки-кристаллы</h3>
+                        <p class="text-gray-300 mb-4">Руды, стекло и драгоценные камни сияют и переливаются на свету</p>
+                        <div class="flex items-center text-pink-300 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 5 -->
+                    <div class="glass p-8 card-hover group">
+                        <div class="icon-box">
+                            <i class="fas fa-wand-magic text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Магические частицы</h3>
+                        <p class="text-gray-300 mb-4">Заклинания, удары и взрывы с эффектом стеклянной крошки</p>
+                        <div class="flex items-center text-pink-300 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 6 -->
+                    <div class="glass p-8 card-hover group">
+                        <div class="icon-box">
+                            <i class="fas fa-film text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Шейдеры реальности</h3>
+                        <p class="text-gray-300 mb-4">Собственные шейдеры с трассировкой лучей и эффектами преломления</p>
+                        <div class="flex items-center text-pink-300 font-semibold group-hover:translate-x-2 transition">
+                            Подробнее <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="effects" class="py-32 bg-gradient-to-b from-transparent via-pink-900/10 to-transparent">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl md:text-6xl font-black mb-4">
+                        Галерея <span class="bliss-gradient">эффектов</span>
+                    </h2>
+                    <p class="text-gray-300">Посмотри, как меняется мир Minecraft с BlissVisuals</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass p-4 card-hover">
+                        <div class="aspect-video bg-gradient-to-br from-pink-200 to-orange-200 rounded-xl flex items-center justify-center text-gray-800">
+                            <i class="fas fa-play-circle text-6xl opacity-50"></i>
+                        </div>
+                        <p class="mt-4 text-center text-white">Стеклянная вода</p>
+                    </div>
+                    <div class="glass p-4 card-hover">
+                        <div class="aspect-video bg-gradient-to-br from-purple-200 to-pink-200 rounded-xl flex items-center justify-center text-gray-800">
+                            <i class="fas fa-play-circle text-6xl opacity-50"></i>
+                        </div>
+                        <p class="mt-4 text-center text-white">Кристальные блоки</p>
+                    </div>
+                    <div class="glass p-4 card-hover">
+                        <div class="aspect-video bg-gradient-to-br from-blue-200 to-cyan-200 rounded-xl flex items-center justify-center text-gray-800">
+                            <i class="fas fa-play-circle text-6xl opacity-50"></i>
+                        </div>
+                        <p class="mt-4 text-center text-white">Магические частицы</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Installation for Visuals (кнопка также вызывает инструкцию) -->
+        <section id="installation-visuals" class="py-32">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="text-5xl md:text-6xl font-black mb-4">
+                        Установка <span class="bliss-gradient">BlissVisuals</span>
+                    </h2>
+                </div>
+                <div class="glass p-8 card-hover text-center">
+                    <p class="text-xl mb-6">Следуй инструкции для правильной установки</p>
+                    <button onclick="openInstructionModal()" class="gradient-button px-12 py-4 text-gray-900 font-black text-lg rounded-xl">
+                        <i class="fas fa-download mr-2"></i> Скачать BlissVisuals
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer for Visuals -->
+        <footer class="border-t border-white/10 py-12 bg-black/30">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-12 mb-12">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 bliss-gradient">BlissVisuals</h3>
+                        <p class="text-gray-300">Преобрази свой мир с эффектами жидкого стекла</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Ссылки</h4>
+                        <ul class="space-y-2 text-gray-300">
+                            <li><a href="#features-visuals" class="hover:text-white transition">Фишки</a></li>
+                            <li><a href="#effects" class="hover:text-white transition">Эффекты</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Сообщество</h4>
+                        <ul class="space-y-2 text-gray-300">
+                            <li><a href="https://t.me/blissvisuals" target="_blank" class="hover:text-white transition flex items-center gap-2"><i class="fab fa-telegram"></i>Telegram</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-white/10 pt-8 text-center text-gray-500">
+                    <p>&copy; 2024 BlissVisuals. Сделано с <i class="fas fa-heart text-pink-500"></i> для эстетов</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Floating Telegram Button -->
+        <a href="https://t.me/blissvisuals" target="_blank" class="fixed bottom-6 right-6 z-50 group animate__animated animate__fadeInRight">
+            <div class="relative p-4 bg-gradient-to-br from-pink-400 to-orange-400 rounded-full border border-white/30 flex items-center shadow-2xl hover:scale-110 transition">
+                <i class="fab fa-telegram text-white text-2xl"></i>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        // Функция копирования (из оригинального кода)
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Скопировано в буфер обмена!');
+            });
+        }
+
+        // Проверяем, был ли уже выбран вариант
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedSide = localStorage.getItem('selectedSide');
+            
+            if (savedSide) {
+                showContent(savedSide);
+            } else {
+                showPoll();
+            }
+        });
+        
+        function showPoll() {
+            document.getElementById('pollModal').classList.remove('hidden');
+            document.getElementById('overlay').classList.remove('hidden');
+        }
+        
+        function hidePoll() {
+            document.getElementById('pollModal').classList.add('hidden');
+            document.getElementById('overlay').classList.add('hidden');
+        }
+        
+        function selectSide(side) {
+            localStorage.setItem('selectedSide', side);
+            showContent(side);
+            hidePoll();
+        }
+        
+        function showContent(side) {
+            const softContent = document.getElementById('softContent');
+            const ansoftContent = document.getElementById('ansoftContent');
+            const body = document.body;
+            
+            if (side === 'soft') {
+                softContent.classList.remove('hidden');
+                ansoftContent.classList.add('hidden');
+                body.classList.remove('ansoft-mode');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                softContent.classList.add('hidden');
+                ansoftContent.classList.remove('hidden');
+                body.classList.add('ansoft-mode');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+        
+        // Функции для инструкционного модального окна BlissVisuals
+        function openInstructionModal() {
+            document.getElementById('instructionModal').classList.remove('hidden');
+            document.getElementById('overlay').classList.remove('hidden');
+        }
+        
+        function closeInstructionModal() {
+            document.getElementById('instructionModal').classList.add('hidden');
+            // Если окно выбора тоже не активно, скрываем оверлей
+            if (document.getElementById('pollModal').classList.contains('hidden')) {
+                document.getElementById('overlay').classList.add('hidden');
+            }
+        }
+        
+        // Обработчик кнопки ОК в инструкции
+        document.getElementById('downloadMainBtn').addEventListener('click', function() {
+            // Скачивание основного файла
+            const link = document.createElement('a');
+            link.href = 'https://gitverse.ru/api/attachments/ee1edc2c-ed77-4fc4-9daa-8d29eb95bf09';
+            link.download = 'blissvisuals-1.1.jar'; // подсказка для скачивания
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Закрываем окно
+            closeInstructionModal();
+        });
+        
+        // Закрытие модального окна по клику на затемнение
+        document.getElementById('overlay').addEventListener('click', function() {
+            // Закрываем активное модальное окно
+            if (!document.getElementById('instructionModal').classList.contains('hidden')) {
+                closeInstructionModal();
+            } else if (!document.getElementById('pollModal').classList.contains('hidden')) {
+                if (localStorage.getItem('selectedSide')) {
+                    hidePoll();
+                }
+            }
+        });
+        
+        // Делаем функции глобальными для вызова из onclick
+        window.showPoll = showPoll;
+        window.selectSide = selectSide;
+        window.openInstructionModal = openInstructionModal;
+
+        // Кнопка наверх
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Показываем/скрываем кнопку при скролле
+        window.addEventListener('scroll', function() {
+            const scrollBtn = document.getElementById('scrollToTopBtn');
+            if (window.scrollY > 300) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+
+        // === МИНИ-ИГРА "ЗАЯЦ НА ЭЛИТРАХ" ===
+        let gameCanvas, gameCtx;
+        let gameRunning = false;
+        let gameLoop;
+        let score = 0;
+        let highScore = localStorage.getItem('hareHighScore') || 0;
+        
+        // Игрок (заяц)
+        let hare = {
+            x: 100,
+            y: 200,
+            width: 40,
+            height: 30,
+            velocity: 0,
+            gravity: 0.5,
+            lift: -8
+        };
+
+        // Препятствия (Funtime анти-читы)
+        let obstacles = [];
+        let obstacleTimer = 0;
+        let obstacleInterval = 100;
+
+        // Частицы (след от элитр)
+        let particles = [];
+
+        function initGame() {
+            gameCanvas = document.getElementById('gameCanvas');
+            gameCtx = gameCanvas.getContext('2d');
+            document.getElementById('highScoreValue').textContent = highScore;
+            
+            // Управление
+            gameCanvas.addEventListener('click', flap);
+            document.addEventListener('keydown', function(e) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    flap();
+                }
+            });
+        }
+
+        function openGameModal() {
+            document.getElementById('gameModal').classList.remove('hidden');
+            document.getElementById('overlay').classList.remove('hidden');
+            if (!gameCanvas) {
+                setTimeout(initGame, 100);
+            }
+            drawInitialScreen();
+        }
+
+        function closeGameModal() {
+            document.getElementById('gameModal').classList.add('hidden');
+            if (!document.getElementById('pollModal').classList.contains('hidden') || 
+                !document.getElementById('instructionModal').classList.contains('hidden')) {
+                // оверлей нужен для другого модалки
+            } else {
+                document.getElementById('overlay').classList.add('hidden');
+            }
+            stopGame();
+        }
+
+        function drawInitialScreen() {
+            gameCtx.fillStyle = '#1a1a2e';
+            gameCtx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+            
+            // Рисуем зайца
+            drawHare(hare.x, hare.y);
+            
+            // Текст
+            gameCtx.fillStyle = '#8b5cf6';
+            gameCtx.font = 'bold 24px Arial';
+            gameCtx.textAlign = 'center';
+            gameCtx.fillText('Нажми "Начать игру"', gameCanvas.width / 2, gameCanvas.height / 2 - 50);
+            gameCtx.font = '16px Arial';
+            gameCtx.fillStyle = '#666';
+            gameCtx.fillText('Уклоняйся от Funtime и не поймай бан!', gameCanvas.width / 2, gameCanvas.height / 2);
+        }
+
+        function startGame() {
+            if (gameRunning) return;
+            
+            gameRunning = true;
+            score = 0;
+            obstacles = [];
+            particles = [];
+            hare.y = 200;
+            hare.velocity = 0;
+            obstacleTimer = 0;
+            
+            document.getElementById('startGameBtn').style.display = 'none';
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('scoreValue').textContent = '0';
+            
+            gameLoop = requestAnimationFrame(update);
+        }
+
+        function restartGame() {
+            document.getElementById('gameOver').style.display = 'none';
+            startGame();
+        }
+
+        function stopGame() {
+            gameRunning = false;
+            cancelAnimationFrame(gameLoop);
+            document.getElementById('startGameBtn').style.display = 'inline-block';
+        }
+
+        function flap() {
+            if (gameRunning) {
+                hare.velocity = hare.lift;
+                createParticles(hare.x, hare.y + hare.height / 2, 5);
+            }
+        }
+
+        function createParticles(x, y, count) {
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: (Math.random() - 0.5) * 4,
+                    life: 30,
+                    color: `hsl(${Math.random() * 60 + 240}, 80%, 60%)`
+                });
+            }
+        }
+
+        function update() {
+            if (!gameRunning) return;
+
+            // Очистка
+            gameCtx.fillStyle = '#1a1a2e';
+            gameCtx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+
+            // Физика зайца
+            hare.velocity += hare.gravity;
+            hare.y += hare.velocity;
+
+            // Границы
+            if (hare.y > gameCanvas.height - hare.height - 10) {
+                hare.y = gameCanvas.height - hare.height - 10;
+                hare.velocity = 0;
+            }
+            if (hare.y < 0) {
+                hare.y = 0;
+                hare.velocity = 0;
+            }
+
+            // Генерация препятствий
+            obstacleTimer++;
+            if (obstacleTimer >= obstacleInterval) {
+                obstacleTimer = 0;
+                let gapHeight = 120;
+                let gapY = Math.random() * (gameCanvas.height - gapHeight - 100) + 50;
+                obstacles.push({
+                    x: gameCanvas.width,
+                    gapY: gapY,
+                    gapHeight: gapHeight,
+                    width: 50,
+                    passed: false
+                });
+            }
+
+            // Обновление препятствий
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                let obs = obstacles[i];
+                obs.x -= 4;
+
+                // Рисуем препятствия (Funtime стиль)
+                gameCtx.fillStyle = '#ff4444';
+                gameCtx.fillRect(obs.x, 0, obs.width, obs.gapY);
+                gameCtx.fillRect(obs.x, obs.gapY + obs.gapHeight, obs.width, gameCanvas.height - obs.gapY - obs.gapHeight);
+                
+                // Текст на препятствиях
+                gameCtx.fillStyle = '#fff';
+                gameCtx.font = 'bold 12px Arial';
+                gameCtx.textAlign = 'center';
+                gameCtx.save();
+                gameCtx.translate(obs.x + obs.width / 2, obs.gapY / 2);
+                gameCtx.rotate(-Math.PI / 2);
+                gameCtx.fillText('FUNTIME', 0, 0);
+                gameCtx.restore();
+                
+                gameCtx.save();
+                gameCtx.translate(obs.x + obs.width / 2, obs.gapY + obs.gapHeight + (gameCanvas.height - obs.gapY - obs.gapHeight) / 2);
+                gameCtx.rotate(-Math.PI / 2);
+                gameCtx.fillText('WATCHDOG', 0, 0);
+                gameCtx.restore();
+
+                // Проверка столкновений
+                if (hare.x < obs.x + obs.width &&
+                    hare.x + hare.width > obs.x &&
+                    (hare.y < obs.gapY || hare.y + hare.height > obs.gapY + obs.gapHeight)) {
+                    gameOver();
+                    return;
+                }
+
+                // Счёт
+                if (obs.x + obs.width < hare.x && !obs.passed) {
+                    obs.passed = true;
+                    score++;
+                    document.getElementById('scoreValue').textContent = score;
+                    
+                    // Усложнение
+                    if (score % 5 === 0 && obstacleInterval > 50) {
+                        obstacleInterval -= 5;
+                    }
+                }
+
+                // Удаление старых
+                if (obs.x + obs.width < 0) {
+                    obstacles.splice(i, 1);
+                }
+            }
+
+            // Частицы
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life--;
+                p.vy += 0.1;
+                
+                gameCtx.fillStyle = p.color;
+                gameCtx.globalAlpha = p.life / 30;
+                gameCtx.beginPath();
+                gameCtx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+                gameCtx.fill();
+                gameCtx.globalAlpha = 1;
+                
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            // Рисуем зайца
+            drawHare(hare.x, hare.y);
+
+            // Рисуем элитры
+            drawElytra(hare.x, hare.y);
+
+            gameLoop = requestAnimationFrame(update);
+        }
+
+        function drawHare(x, y) {
+            // Тело зайца
+            gameCtx.fillStyle = '#fff';
+            gameCtx.beginPath();
+            gameCtx.ellipse(x + 20, y + 15, 20, 12, 0, 0, Math.PI * 2);
+            gameCtx.fill();
+            
+            // Голова
+            gameCtx.beginPath();
+            gameCtx.arc(x + 35, y + 10, 10, 0, Math.PI * 2);
+            gameCtx.fill();
+            
+            // Уши
+            gameCtx.fillStyle = '#ffe4e1';
+            gameCtx.beginPath();
+            gameCtx.ellipse(x + 32, y, 3, 8, -0.3, 0, Math.PI * 2);
+            gameCtx.fill();
+            gameCtx.beginPath();
+            gameCtx.ellipse(x + 38, y, 3, 8, 0.3, 0, Math.PI * 2);
+            gameCtx.fill();
+            
+            // Глаз
+            gameCtx.fillStyle = '#000';
+            gameCtx.beginPath();
+            gameCtx.arc(x + 38, y + 8, 2, 0, Math.PI * 2);
+            gameCtx.fill();
+        }
+
+        function drawElytra(x, y) {
+            // Крылья элитр
+            gameCtx.fillStyle = '#8b5cf6';
+            gameCtx.beginPath();
+            gameCtx.moveTo(x + 10, y + 10);
+            gameCtx.lineTo(x - 15, y - 5);
+            gameCtx.lineTo(x - 10, y + 5);
+            gameCtx.closePath();
+            gameCtx.fill();
+            
+            gameCtx.beginPath();
+            gameCtx.moveTo(x + 10, y + 20);
+            gameCtx.lineTo(x - 15, y + 35);
+            gameCtx.lineTo(x - 10, y + 25);
+            gameCtx.closePath();
+            gameCtx.fill();
+            
+            // Свечение
+            gameCtx.shadowColor = '#8b5cf6';
+            gameCtx.shadowBlur = 10;
+            gameCtx.stroke();
+            gameCtx.shadowBlur = 0;
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            cancelAnimationFrame(gameLoop);
+            
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('hareHighScore', highScore);
+                document.getElementById('highScoreValue').textContent = highScore;
+            }
+            
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('gameOver').style.display = 'block';
+        }
+
+        // Делаем функции глобальными
+        window.openGameModal = openGameModal;
+        window.closeGameModal = closeGameModal;
+        window.startGame = startGame;
+        window.restartGame = restartGame;
+    </script>
+</body>
+</html>
